@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>DOMBuilder Attribute Tests</title>
+  <style>
+  body { font-family: verdana; font-size: 12px; }
+  th { background-color: #cdf; }
+  .row1 { background-color: #f3f6f9; }
+  .row2 { background-color: #f6f9fc; }
+  </style>
+  <script>
+  if (location.hash == "#jQuery")
+  {
+      document.write('<script type="text/javascript" src="lib/jquery.min.js"></s' + 'cript>');
+  }
+  </script>
+  <script src="../dist/DOMBuilder.template.js"></script>
+  <script>
+  if (location.hash != "#jQuery")
+  {
+      document.write('<script type="text/javascript" src="lib/jquery.min.js"></s' + 'cript>');
+  }
+  </script>
+  <script>
+  var NBSP = "\u00A0";
+
+  function runTests(testConfigs, testFunction)
+  {
+      var results = [];
+      for (var i = 0, l = testConfigs.length; i < l; i++)
+      {
+          var config = testConfigs[i];
+          var bothValuesSet = (config[1] !== null && config[2] !== null);
+          var configResults = [];
+          configResults.push(testFunction.apply(null, config.concat([true])));
+          if (bothValuesSet)
+          {
+              configResults.push(testFunction.apply(null, config.concat([false])));
+          }
+          results.push(configResults);
+      }
+      return results;
+  }
+
+  function createResultsTable(headers, results)
+  {
+      return TABLE({border: 2, frame: "hsides", rules: "groups"},
+        COLGROUP({span: 1}),
+        COLGROUP({span: 3}),
+        COLGROUP({span: 4}),
+        THEAD(
+          TR(TH({colSpan: 1}, NBSP), TH({colSpan: 3}, "Attributes"), TH({colSpan: 4}, "Results")),
+          TR(TH.map(headers))
+        ),
+        TBODY.map(results, function(configResults)
+        {
+          return TR.map(configResults, function(resultData, attrs, configResultsIndex)
+          {
+            // Stripe rows
+            attrs['class'] = configResultsIndex % 2 == 0 ? 'row1' : 'row2';
+            return TD.map(resultData, function(result, attrs, resultIndex)
+            {
+                if (configResultsIndex > 0 && resultIndex === 0)
+                {
+                    return NBSP;
+                }
+                else
+                {
+                    return result;
+                }
+            });
+          });
+        })
+      );
+  }
+
+  var INPUT_TESTS = [
+      ["value only",                 null,           "value"],
+      ["defaultValue only",          "defaultValue", null],
+      ["defaultValue & value",       "defaultValue", "value"],
+      ["defaultValue & blank value", "defaultValue", ""],
+      ["blank defaultValue & value", "",             "value"]
+  ];
+
+  function testInputValues(testName, defaultValue, value, defaultFirst)
+  {
+      // Prepare test data and set up DOMBuilder
+      var propertyAccess = {};
+      var attrs = {type: "text", name: "testInput"};
+
+      function setDefault()
+      {
+          if (defaultValue !== null)
+          {
+              attrs["defaultValue"] = defaultValue;
+          }
+      }
+
+      if (defaultFirst) { setDefault(); }
+      if (value !== null)
+      {
+          attrs["value"] = value;
+      }
+      if (!defaultFirst) { setDefault(); }
+
+      // Set up the test
+      var fixture = document.getElementById("fixture");
+      var input = INPUT(attrs);
+      fixture.appendChild(input);
+
+      var initialInput = jQuery(input).clone().get(0);
+
+      // Check initial and reset values
+      var initialValue = input.value;
+      input.value = "newValue";
+      jQuery("#reset").trigger("click");
+      var resetValue = input.value;
+
+      // Clear the fixture
+      fixture.innerHTML = "";
+
+      return [
+          testName,
+          defaultValue === null ? NBSP : '"' + defaultValue + '"',
+          value === null ? NBSP : '"' + value + '"',
+          (defaultValue !== null && value !== null)
+              ? (defaultFirst ? "defaultValue" : "value") + " first"
+              : "N/A",
+          initialValue,
+          initialInput,
+          resetValue,
+          input
+      ];
+  }
+
+  var CHECKBOX_TESTS = [
+      ["none",                       null,  null],
+      ["checked only",               null,  true],
+      ["defaultChecked only",        true,  null],
+      ["defaultChecked & checked",   true,  true],
+      ["defaultChecked & !checked",  true,  false],
+      ["!defaultChecked & checked ", false, true]
+  ];
+
+  function testCheckboxValues(testName, defaultChecked, checked, defaultFirst)
+  {
+      // Prepare test data and set up DOMBuilder
+      var propertyAccess = {};
+      var attrs = {type: "checkbox", name: "testInput"};
+      function setDefault()
+      {
+          if (defaultChecked !== null)
+          {
+              attrs["defaultChecked"] = defaultChecked;
+          }
+      }
+
+      if (defaultFirst) { setDefault(); }
+      if (checked !== null)
+      {
+          attrs["checked"] = checked;
+      }
+      if (!defaultFirst) { setDefault(); }
+
+      // Set up the test
+      var fixture = document.getElementById("fixture");
+      var input = INPUT(attrs);
+      fixture.appendChild(input);
+
+      var initialInput = jQuery(input).clone().get(0);
+
+      // Check initial and reset checked values
+      var initialChecked = (input.checked === true);
+      input.checked = !input.checked;
+      jQuery("#reset").trigger("click");
+      var resetChecked = (input.checked === true);
+
+      // Clear the fixture
+      fixture.innerHTML = "";
+
+      return [
+          testName,
+          defaultChecked === null ? NBSP : defaultChecked,
+          checked === null ? NBSP : checked,
+          (defaultChecked !== null && checked !== null)
+              ? (defaultFirst ? "defaultChecked" : "checked") + " first"
+              : "N/A",
+          initialChecked,
+          initialInput,
+          resetChecked,
+          input
+      ];
+  }
+
+  var OPTION_TESTS = [
+      ["none",                         null,  null],
+      ["selected only",                null,  true],
+      ["defaultSelected only",         true,  null],
+      ["defaultSelected & selected",   true,  true],
+      ["defaultSelected & !selected",  true,  false],
+      ["!defaultSelected & selected ", false, true]
+  ];
+
+  function testOptionValues(testName, defaultSelected, selected, defaultFirst)
+  {
+      // Prepare test data and set up DOMBuilder
+      var propertyAccess = {};
+      var attrs = {value: "test"};
+      function setDefault()
+      {
+          if (defaultSelected !== null)
+          {
+              attrs["defaultSelected"] = defaultSelected;
+          }
+      }
+
+      if (defaultFirst) { setDefault(); }
+      if (selected !== null)
+      {
+          attrs["selected"] = selected;
+      }
+      if (!defaultFirst) { setDefault(); }
+
+      // Set up the test
+      var fixture = document.getElementById("fixture");
+      var input = SELECT(OPTION("----"));
+      var option = OPTION(attrs, "Test");
+      input.appendChild(option);
+      fixture.appendChild(input);
+
+      var initialInput = jQuery(input).clone().get(0);
+
+      // Check initial and reset selected values
+      var initialSelected = (input.selectedIndex === 1);
+      input.selected = !input.selected;
+      jQuery("#reset").trigger("click");
+      var resetSelected = (input.selectedIndex === 1);
+
+      // Clear the fixture
+      fixture.innerHTML = "";
+
+      return [
+          testName,
+          defaultSelected === null ? NBSP : defaultSelected,
+          selected === null ? NBSP : selected,
+          (defaultSelected !== null && selected !== null)
+              ? (defaultFirst ? "defaultSelected" : "selected") + " first"
+              : "N/A",
+          initialSelected,
+          initialInput,
+          resetSelected,
+          input
+      ];
+  }
+
+  function attributeTests()
+  {
+      DOMBuilder.mode = 'dom';
+      DOMBuilder.apply(window);
+      document.getElementById("jQueryAvailable").innerHTML = DOMBuilder.util.JQUERY_AVAILABLE;
+
+      var inputTestResults = runTests(INPUT_TESTS, testInputValues);
+      document.getElementById("inputTestResults").appendChild(
+          createResultsTable(
+              ["Test", CODE("defaultValue"), CODE("value"), "Order",
+               "Initial Value", "Initial Input", "Value After Reset", "Reset Input"],
+              inputTestResults));
+
+      var checkboxTestResults = runTests(CHECKBOX_TESTS, testCheckboxValues)
+      document.getElementById("checkboxTestResults").appendChild(
+          createResultsTable(
+              ["Test", CODE("defaultChecked"), CODE("checked"), "Order",
+               "Initially Checked", "Initial Input", "Checked After Reset", "Reset Input"],
+              checkboxTestResults));
+
+      var optionTestResults = runTests(OPTION_TESTS, testOptionValues)
+      document.getElementById("optionTestResults").appendChild(
+          createResultsTable(
+              ["Test", CODE("defaultSelected"), CODE("selected"), "Order",
+               "Initially Selected", "Initial Input", "Selected After Reset", "Reset Input"],
+              optionTestResults));
+  }
+
+  window.onload = attributeTests;
+  </script>
+</head>
+<body>
+  <h1>DOMBuilder Attribute Tests</h1>
+  <ul>
+   <li><a href="#jQuery" onclick="location.hash = '#jQuery'; location.reload()">with jQuery</a></li>
+   <li><a href="#" onclick="location.hash = ''; location.reload()">without jQuery</a></li>
+  </ul>
+  <code>DOMBuilder.util.JQUERY_AVAILABLE == <span id="jQueryAvailable"></span></code>
+
+  <form style="display: none">
+    <div id="fixture"></div>
+    <input type="reset" id="reset" value="Reset">
+  </form>
+  <h2>&lt;input type="text"&gt; - <code>value</code> &amp; <code>defaultValue</code></h2>
+  <div id="inputTestResults"></div>
+  <h2>&lt;input type="checkbox"&gt; - <code>checked</code> &amp; <code>defaultChecked</code></h2>
+  <div id="checkboxTestResults"></div>
+  <h2>&lt;option&gt; - <code>selected</code> &amp; <code>defaultSelected</code></h2>
+  <div id="optionTestResults"></div>
+</body>
+</html>

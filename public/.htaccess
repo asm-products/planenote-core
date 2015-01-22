@@ -1,0 +1,41 @@
+Options -Indexes
+
+DirectoryIndex index.php
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+
+#RewriteRule ^img/+([^/]+)/+([^/]+) /resource.php?type=img&dir=$1&file=$2 [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-s
+RewriteRule ^.*$ /index.php [NC]
+
+#ErrorDocument 404 /index.php
+
+# compress text, html, javascript, css, xml:
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+# 5 HOURS
+<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+Header set Cache-Control "max-age=18000, public"
+</FilesMatch>
+ 
+# 4 WEEKS
+#<FilesMatch "\.(txt|xml|js|css)$">
+#Header set Cache-Control "max-age=2419200"
+#</FilesMatch>
+ 
+# NEVER CACHE
+<FilesMatch "\.(html|php|cgi)$">
+Header set Cache-Control "max-age=0, private, no-store, no-cache, must-revalidate"
+</FilesMatch>
+#RewriteCond %{HTTP_HOST} ^www\.cafae\.net$
+#RewriteRule ^/?$ "http\:\/\/cafae\.net\/" [R=301,L]

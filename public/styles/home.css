@@ -1,0 +1,246 @@
+body {
+	min-height: 300px;
+}
+
+#mainPageContainer {
+	width: 100%;
+	height: 100%;
+}
+
+#leftPanel {
+	float: left;
+	background-color: #1D8CC6;
+	width: 30%;
+	position: relative;
+	z-index: 1;
+}
+
+#rightContent {
+	float: left;
+	background-color: #E7E9EC;
+	width: 70%;
+	position: relative;
+}
+
+#loginButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 35px;
+	width: 85px;
+	background-color: #1D8CC6;
+	border: 1px solid #0F70A3;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+#loginButton:hover {
+	background-color: #2195D1;
+}
+
+#leftPanel .contentContainer {
+	width: 100%;
+	height: 300px;
+	position: absolute;
+}
+
+#leftPanel .contentContainer:after {
+	content: "";
+	position: absolute;
+	border-style: solid;
+	display: block;
+	width: 0;
+	top: 200px;
+	right: -8px;
+	bottom: auto;
+	left: auto;
+	border-width: 10px 0 10px 10px;
+	border-color: transparent #1D8CC6;
+}
+
+#leftPanel .contentContainer .logo {
+	font-weight: bold;
+	font-size: 62px;
+	color: #E7E9EC;
+	text-align: right;
+	padding-right: 30px;
+}
+
+#leftPanel .contentContainer .new-user-text {
+	position: absolute;
+	bottom: 80px;
+	width: 100%;
+	text-align: right;
+	padding-right: 30px;
+}
+
+#leftPanel .contentContainer .new-user-text .new-user-icon {
+	background-image: url("/img/static/user_24.png");
+	background-size: 16px;
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+	display: inline-block;
+	position: relative;
+	bottom: -1px;
+}
+
+#leftPanel .contentContainer .new-user-text .new-user-msg {
+	color: #F2F2F2;
+	font-size: 18px;
+}
+
+#leftPanel .contentContainer .new-user-form {
+	width: 280px;
+	position: absolute;
+	right: -300px;
+	bottom: 25px;
+	z-index: 2;
+}
+
+#leftPanel .contentContainer .new-user-form input.field-input {
+	padding: 10px;
+	width: 100%;
+	height: 40px;
+	margin-top: 10px;
+	border: 1px solid #C4C4C4;
+	border-radius: 2px;
+	outline: none;
+	font-size: 16px;
+	color: #7A7A7A;
+}
+
+#leftPanel .contentContainer .new-user-form #newUserGo {
+	width: 100%;
+	height: 35px;
+	margin-top: 10px;
+	background-color: #1D8CC6;
+	border: 1px solid #0F70A3;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+#leftPanel .contentContainer .new-user-form #newUserGo:hover {
+	background-color: #2195D1;
+}
+
+.button_text {
+	color: #F2F2F2;
+	font-size: 16px;
+}
+
+.button_loader {
+	display: none;
+	background-image: url('/img/static/button_loader.gif');
+	background-size: 43px 11px;
+	width: 43px;
+	height: 11px;
+	margin: 0 auto;
+}
+
+#leftPanel .contentContainer .new-user-form #newUserGo > .button_check {
+	display: none;
+	background-image: url('/img/static/check_blue_24.png');
+	background-size: 24px;
+	width: 24px;
+	height: 24px;
+	margin: 0 auto;
+}
+
+#leftPanel .contentContainer .new-user-form #newUserGo > .button_fail {
+	display: none;
+	background-image: url('/img/static/x_blue_24.png');
+	background-size: 24px;
+	width: 24px;
+	height: 24px;
+	margin: 0 auto;
+}
+
+#rightContent .footer-links {
+	list-style-type: none;
+	position: absolute;
+	bottom: 10px;
+	left: 40px;
+}
+
+#rightContent .footer-links > li {
+	float: left;
+	font-size: 12px;
+	margin-right: 15px;
+}
+
+#rightContent .footer-links > li > a {
+	text-decoration: none;
+	color: #127BB3;
+}
+
+#rightContent .footer-links > li > a:hover {
+	text-decoration: underline;
+}
+
+.new-user-form .errMsg {
+	display: none;
+	background-color: #FCCFCF;
+	position: absolute;
+	padding: 8px 15px;
+	height: 35px;
+	color: #B83737;
+	font-size: 15px;
+}
+
+.new-user-form .errMsg:after {
+	content: "";
+	position: absolute;
+	border-style: solid;
+	display: block;
+	width: 0;
+	top: 12px;
+	left: -10px;
+	bottom: auto;
+	border-width: 5px 10px 5px 0;
+	border-color: transparent #FCCFCF;
+}
+
+.new-user-form .regNameErrMsg {
+	top: 2px;
+}
+
+.new-user-form .regEmailErrMsg {
+	top: 12px;
+}
+
+.new-user-form .regPassErrMsg {
+	top: 62px;
+}
+
+.new-user-form .hidden-fields {
+	display: none;
+	position: relative;
+}
+
+.loginForm {
+	width: 325px;
+	height: 35px;
+	position: absolute;
+	top: 10px;
+	right: 100px;
+}
+
+.loginForm input {
+	padding: 0 8px;
+	height: 35px;
+	width: 160px;
+	outline: none;
+	border: 1px solid #C4C4C4;
+	border-radius: 2px;
+}
+
+.loginForm input[type="text"] {
+	float: left;
+}
+
+.loginForm input[type="password"] {
+	float: right;
+}
+

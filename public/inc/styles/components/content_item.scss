@@ -1,0 +1,55 @@
+.content-item-cntr {
+    margin-top:20px;
+    padding:0px;
+
+    .content-item {
+        padding:20px;
+        border-bottom:1px solid #E7E9EC;
+        &:last-child {
+            border-bottom:0;
+        }
+        
+        .left-content {
+            display:block;
+            width:40px;
+            float:left;
+            
+            .poster-img {
+                width:40px;
+                height:40px;
+            }
+        }
+        
+        .main-content {
+            display:block;
+            vertical-align:top;
+            width:100%;
+            padding-left:40px;
+            
+            .main-content-cntr {
+                width:100%;
+                padding-left:20px;
+                
+                .poster-name {
+                    a {
+                        font-weight:bold;
+                        color:#a1a1a1;
+                        font-size:13px;
+                    }
+                }
+                
+                .content-media {
+                    margin-top:20px;
+                    
+                    .content-media-img {
+                        min-width:80px;
+                        min-height:80px;
+                        max-width:430px;
+                        max-height:600px;
+                    }
+                }
+            }
+        }
+    }
+
+}

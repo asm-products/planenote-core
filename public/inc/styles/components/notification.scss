@@ -1,0 +1,30 @@
+.uk-notify {
+	.uk-notify-message {
+		cursor:default;
+		padding:0px;
+		border-radius:2px;
+		border:0;
+
+		.uk-close {
+			position:relative;
+			right:3px;
+			top:3px;
+			color:#000;
+		}
+
+		.content {
+			display:block;
+			padding:15px;
+			background-color:#f3f3f3;
+			color:#434343;
+
+			.title {
+				font-size:14px;
+			}
+
+			.message {
+				font-size:13px;
+			}
+		}
+	}
+}

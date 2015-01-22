@@ -1,0 +1,28 @@
+$topbar-height:50px;
+
+#topbar {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:$topbar-height;
+    padding:0px 20px;
+    background-color:#fff;
+    border-bottom:1px solid #CFCFCF;
+    z-index:100;
+    
+    .page-name {
+        display:inline-block;
+        margin:0;
+        font-size:24px;
+        line-height:$topbar-height;
+    }
+    
+    .top-search-cntr {
+        display:inline-block;
+        float:right;
+        position:relative;
+        top:6px;
+        border-bottom: 1px solid #cfcfcf;
+    }
+}

@@ -1,0 +1,21 @@
+.content_page.view_page {
+
+	.media-container {
+		background-color:#222;
+		text-align: center;
+		// padding-top:10px;
+		// padding-bottom:10px;
+
+		img {
+			max-height:900px;
+			max-width:100%;
+		}
+	}
+
+	.post-info {
+		.post-time-cntr {
+			float:right;
+		}
+	}
+
+}
