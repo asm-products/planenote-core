@@ -1,0 +1,37 @@
+.contact_content_cnt .item {
+	padding:0;
+	border-color:#F5F5F5;
+}
+
+.contact_content_cnt .item > *, .contact_name_cnt {
+	text-align:center;
+}
+
+.contact_name_cnt {
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+
+.contact_content_cnt .item > * {
+	padding:20px;
+	border-right:1px solid #F5F5F5;
+} .contact_content_cnt .item > *:nth-child(3) {
+	border-right:0;
+}
+
+.contact_prof_img_cnt {
+	display:inline-block;
+	padding:2px;
+	border:1px solid #ccc;
+}
+
+.contact_prof_img_cnt > * {
+	display:inline-block;
+	width:90px;
+	height:90px;
+	vertical-align:bottom;
+}
+
+.contact_content_cnt .item .empty {
+	height:100%;
+}

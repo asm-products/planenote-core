@@ -1,0 +1,15 @@
+
+chat_server/node_modules/*
+*.log
+.sass-cache
+.project
+.DS_Store
+
+# Config Files #
+private/config.json
+
+# User Uploads #
+public/img/post/*
+!public/img/post/.gitignore
+public/img/profile/*
+!public/img/profile/default_profile_image.png

@@ -1,0 +1,48 @@
+
+.home_page {
+
+    .home-post-container {
+        .post-text-input {
+            width:100%;
+            min-width:100%;
+            max-width:100%;
+            resize:none;
+            padding:0;
+            border:0;
+            outline:none;
+        }
+
+        .upload-file-controls, .upload-image-controls {
+        	display:inline-block;
+        }
+
+        .upload-image-controls {
+        	display:none;
+        }
+
+        .post-img-placeholder {
+        	display:none;
+        	margin-bottom:20px;
+        	width:100%;
+
+        	img {
+        		max-width:100%;
+        		max-height:200px;
+        	}
+        }
+    }
+    
+    .load-more-cntr {
+        text-align:center;
+        margin-top:20px;
+        margin-bottom:20px;
+    }   
+
+    .empty-message {
+        text-align:center;
+        padding-top:80px;
+        font-size:20px;
+        color:#565656;
+    }
+
+}
