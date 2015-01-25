@@ -2,6 +2,7 @@
 
 .b-modal {
 	background-color:#5e6e8d!important;
+	cursor: default !important;
 }
 
 #dialog {
@@ -9,7 +10,7 @@
 	width:90%;
 	max-width: 400px;
 	background: #FFF;
-	border-radius: .25em .25em .4em .4em;
+	border-radius: 3px;
 	text-align: center;
 	box-shadow: 0 0 20px rgba(#000, .2);
 	color:#8f9cb5;
@@ -23,43 +24,40 @@
 		@include clearfix;
 		padding:0px;
 		margin:0px;
+		
+		&[data-button-count="2"] {
+			li { width: 50%; }
+		}
 
 		li {
 			float: left;
-			width: 50%;
-		}
-
-		span {
-			display: block;
-			height: 60px;
-			line-height: 60px;
-			text-transform: uppercase;
-			color: #FFF;
-			cursor: pointer;
-			@include transition(background-color .2s);
-		}
-
-		.yes {
-			border-radius: 0 0 0 .25em;
+			width: 100%;
 			
-			&.red {
-				background-color: #fc7169;
+			&:first-child {
+				span { border-bottom-left-radius: 3px; }
 			}
-			&.green {
-				background-color:#64CA9F;
+			&:last-child {
+				span { border-bottom-right-radius: 3px; }
 			}
-
-			.no-touch &:hover {
-				background-color: lighten(#fc7169, 5%);
-			}
-		}
-
-		.no {
-			background-color: #b6bece;
-			border-radius: 0 0 .25em 0;
-
-			.no-touch &:hover {
-				background-color: lighten(lighten(#5e6e8d, 30%), 5%);
+			
+			span {
+				display: block;
+				height: 60px;
+				line-height: 60px;
+				text-transform: uppercase;
+				color: #FFF;
+				cursor: pointer;
+				background-color: #b6bece;
+				&:hover { background-color: lighten(#b6bece, 1.5%); }
+				
+				&.positive {
+					background-color: #64CA9F;
+					&:hover { background-color: lighten(#64CA9F, 1.5%); }
+				}
+				&.negative {
+					background-color: #fc7169;
+					&:hover { background-color: lighten(#fc7169, 1.5%); }
+				}
 			}
 		}
 	}
