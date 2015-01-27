@@ -18,6 +18,23 @@
 		if (op.message != null)
 			dialog.find('.message').html(op.message);
 		
+		// Add icon
+		if (op.icon !== undefined) {
+			(function() {
+				var icon = '';
+				
+				switch(op.icon) {
+					case 'frown':
+						icon = '<i class="fa fa-frown-o"></i>'; break;
+					case 'check':
+						icon = '<i class="fa fa-check green"></i>'; break;
+				}
+				
+				dialog.find('.message').prepend('<div class="icon">'+icon+'</div>');
+			})();
+		} else
+			dialog.find('.message .icon').remove();
+		
 		var dialogOptions = {
 			closeClass: 'dialog-close',
 			opacity: 0.9,
