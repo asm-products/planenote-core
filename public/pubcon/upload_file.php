@@ -24,7 +24,7 @@ $valid_file_types = array('img', 'vid');
 
 // Check if we've posted a valid file
 if (!in_array($_GET['type'], $valid_file_types)) {
-    $_r->error(400);
+    $_r->errorCode(400);
     $_r->errorMessage('Invalid file type');
     $_r->output();
     exit();
@@ -46,7 +46,7 @@ $file_upload = new FileUpload('uploadfile');
 // Check if the file extension is valid
 $file_ext = $file_upload->getExtension();
 if (!in_array($file_ext, $valid_ext)) {
-    $_r->error(400);
+    $_r->errorCode('invalid_ext');
     $_r->errorMessage('Invalid file extension');
     $_r->output();
     exit();

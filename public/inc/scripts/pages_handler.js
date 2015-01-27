@@ -87,6 +87,11 @@ var _pg_hndlr = {
 					
 					if (type == 'home')
 						window.bindScrollEvent.home();
+					
+					// bind events
+					_.each(_pg_hndlr.bindEvents, function(events) {
+						events.callback();
+					});
 				},
 				error: function(error) {
 					console.log('error');
@@ -145,6 +150,34 @@ var _pg_hndlr = {
 		if (name=='user') name='home';
 		var pick = names[name];
 		return pick[type];
+	},
+	bindEvents: [],
+	addBindEvents: function(type, callback) {
+		var event_name = window.uniqid('event-');
+        var event_bind = function() {
+            var page = (function() {
+            	if (type == 'home')
+            		return $('.content_page.home_page');
+            	
+            	return false;
+            })();
+            
+            if (!page || page.data(event_name+'-binded'))
+                return;
+            
+            if (page.length > 0) {
+                callback();
+                page.data(event_name+'-binded', true);
+            }
+        };
+        
+        _pg_hndlr.bindEvents.push({
+            name: event_name,
+            callback: event_bind
+        });
+        
+        // run the event now
+        event_bind();
 	},
 	activesidebar: function(link) {
 		if (!link) return;

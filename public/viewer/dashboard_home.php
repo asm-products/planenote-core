@@ -7,19 +7,23 @@ include_once('/var/www/pn/private/api/init.php');
 <div class="content_page home_page" data-link="/">
     <div class="content_wrapper">
     
-        <div class="home-post-container content-card">
-            <div class="post-img-placeholder"><img src></div>
-            <textarea class="postText post-text-input" placeholder="Type your post here..."></textarea>
-            <div class="upload-file-controls uk-button-group">
-                <button class="uploadImg uk-button uk-button-small"><i class="fa fa-image"></i> Add Image</button>
-                <button class="uk-button uk-button-small"><i class="fa fa-video-camera"></i> Add Video</button>
+        <div class="home-post-container">
+            <div class="post-content">
+                <div class="post-img-placeholder"><img src></div>
+                <textarea class="postText post-text-input" placeholder="Write a post..."></textarea>
             </div>
-            <div class="upload-image-controls uk-button-group">
-                <button class="uploadImgChange uk-button uk-button-small"><i class="fa fa-exchange"></i> Change Image</button>
-                <button class="uploadImageRemove uk-button uk-button-danger uk-button-small"><i class="fa fa-times"></i> Remove Image</button>
+            <div class="post-actions">
+                <div class="upload-file-controls uk-button-group">
+                    <button class="uploadImg add-image uk-button uk-button-small" title="Add Image"><i class="icon fa fa-image"></i></button>
+                    <button class="uk-button uk-button-small"><i class="icon fa fa-video-camera" title="Add Video (under development)"></i></button>
+                </div>
+                <div class="upload-image-controls uk-button-group">
+                    <!-- <button class="uploadImgChange uk-button uk-button-small"><i class="fa fa-exchange"></i> Change Image</button> -->
+                    <button class="uploadImageRemove uk-button uk-button-danger uk-button-small"><i class="fa fa-times"></i> Remove Image</button>
+                </div>
+                
+                <button class="postButton post-button uk-button uk-button-primary uk-button-small" style="float:right;"><i class="fa fa-chevron-right"></i></button>
             </div>
-            
-            <button class="postButton uk-button uk-button-primary uk-button-small" style="float:right;">Post <i class="fa fa-long-arrow-right"></i></button>
         </div>
         
         <?php

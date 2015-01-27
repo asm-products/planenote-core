@@ -65,6 +65,11 @@
         // home scroll event
         window.bindScrollEvent.home();
         
+        // Textarea autosize bind events
+        _pg_hndlr.addBindEvents('home', function() {
+            $('.postText').textareaAutoSize().trigger('input');
+        });
+        
         /* Post */
         _doc.on('click', '.postButton', function() {
             var btn = $(this);
@@ -82,8 +87,16 @@
                     dataType: "json",
                     data: data,
                     success: function(res) {
-                        console.log(res);
-                        window.postContent.cleanup();
+                        if (res.success) {
+                            window.postContent.cleanup();
+                            window.location = '/view/' + res.post.post_id;
+                        } else {
+                            _dialog({
+                                okText: 'Try again',
+                                icon: 'frown',
+                                message: 'Uh Oh! Something went wrong while uploading your post. Please try again.'
+                            });
+                        }
                     },
                     fail: function() {
                         console.log('ajax failed!');
@@ -105,7 +118,18 @@
 
                             upload();
                         } else {
-                            console.log('failed to upload image');
+                            var message = 'Uh Oh! ';
+                            
+                            if (res.error.code == 'invalid_ext')
+                                message += 'Image extension not supported. Please upload an image with an extension of JPEG, PNG or GIF.';
+                            else
+                                message += 'Something went wrong while uploading your image.';
+                            
+                            _dialog({
+                                okText: 'Try again',
+                                icon: 'frown',
+                                message: message
+                            });
                         }
                     }
                 });
@@ -118,9 +142,9 @@
         });
         
         // Upload file event handler
-        if ($(".uploadImg").length > 0) {
+        var fileUploadBind = function() {
             window.postUploadFile = new ss.SimpleUpload({
-                button: [$(".uploadImg"), $(".uploadImgChange")],
+                button: [$(".uploadImg")],
                 url: "/pubcon/upload_file.php",
                 name: "uploadfile",
                 data: {
@@ -138,11 +162,17 @@
                     window.postContent.uploadFile.filePresent = true;
                 },
                 onError: function() {
-                    console.log('error');
+                    _dialog({
+                        okText: 'Try again',
+                        icon: 'frown',
+                        message: 'Uh Oh! Something went wrong while choosing the image. Please try again.'
+                    });
+                    
                     window.postContent.uploadFile.reset();
                 }
             });
-        }
+        };
+        _pg_hndlr.addBindEvents('home', fileUploadBind);
 
         // Remove image
         _doc.on('click', '.uploadImageRemove', function() {
@@ -152,6 +182,9 @@
             window.postContent.uploadFile.preview.hide();
             $('.upload-image-controls').hide();
             $('.upload-file-controls').css('display', 'inline-block');
+            
+            window.postUploadFile.destroy();
+            fileUploadBind();
         });
         
         /* Load more posts */
