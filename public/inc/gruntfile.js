@@ -112,6 +112,7 @@ module.exports = function(grunt) {
             build_main: {
                 files: {
                     'scripts/min/main.js': [
+                        'scripts/ajax_setup.js',
                         'scripts/helper.js',
                         'scripts/sitewide.js',
                         'scripts/pages_handler.js',

@@ -90,6 +90,8 @@
                         if (res.success) {
                             window.postContent.cleanup();
                             window.location = '/view/' + res.post.post_id;
+                        } else if (res.error && res.error.code == 401) {
+                            window.ajaxSessionExpired();
                         } else {
                             _dialog({
                                 okText: 'Try again',
@@ -117,6 +119,8 @@
                             };
 
                             upload();
+                        } else if (res.error && res.error.code == 401) {
+                            window.ajaxSessionExpired();
                         } else {
                             var message = 'Uh Oh! ';
                             

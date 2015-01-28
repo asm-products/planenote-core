@@ -28,6 +28,14 @@
 						icon = '<i class="fa fa-frown-o"></i>'; break;
 					case 'check':
 						icon = '<i class="fa fa-check green"></i>'; break;
+					case 'exclamation':
+						icon = '<i class="fa fa-exclamation-triangle"></i>'; break;
+					case 'time':
+						icon = '<i class="fa fa-clock-o"></i>'; break;
+					case 'question':
+						icon = '<i class="fa fa-question-circle"></i>'; break;
+					case 'times':
+						icon = '<i class="fa fa-times-circle"></i>'; break;
 				}
 				
 				dialog.find('.message').prepend('<div class="icon">'+icon+'</div>');
