@@ -439,4 +439,14 @@ jQuery(document).ready(function() {
 				jQuery('.ui-widget-overlay').hide().fadeIn(250);
 		}
 	});
+	
+	/* Keep the user logged in */
+	setInterval(function() {
+		$.ajax({
+			url: '/pubcon/ping.php',
+			timeout: 10000,
+			error: function(){},
+			fail: function(){}
+		});
+	}, 90000);
 });
