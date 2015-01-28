@@ -92,12 +92,6 @@ var _pg_hndlr = {
 					_.each(_pg_hndlr.bindEvents, function(events) {
 						events.callback();
 					});
-				},
-				error: function(error) {
-					console.log('error');
-				},
-				fail: function() {
-					console.log('failed');
 				}
 			});
 		} else {
