@@ -103,7 +103,8 @@ module.exports = function(grunt) {
                         'lib/bower_components/underscore/underscore-min.js',
                         'lib/bower_components/nprogress/nprogress.js',
                         'lib/simple_ajax_uploader/SimpleAjaxUploader.min.js',
-                        'lib/bower_components/textarea-autosize/dist/jquery.textarea_autosize.js'
+                        'lib/bower_components/textarea-autosize/dist/jquery.textarea_autosize.js',
+                        'scripts/lib/modernizr.min.js'
                     ]
                 }
             },

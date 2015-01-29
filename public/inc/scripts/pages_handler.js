@@ -210,7 +210,11 @@ var _pg_hndlr = {
 
 jQuery(window).ready(function() {
 	
-	if (!_pg_hndlr.enabled) return;
+	// Detect if the browser can support this feature
+	if (!Modernizr.history) {
+		_pg_hndlr.enabled = false;
+		return;
+	}
 	
 	if (typeof history.pushState != 'function')
 		return _pg_hndlr.enabled = false;
