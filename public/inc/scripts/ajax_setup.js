@@ -17,7 +17,7 @@
 				window.ajaxTimeout();
 			else if (error == 'parsererror')
 				window.ajaxParserError();
-			else {
+			else if (error != 'abort') {
 				window.ajaxUnknownError();
 				console.log(error);
 			}

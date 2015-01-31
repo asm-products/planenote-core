@@ -3,6 +3,7 @@ var _pg_hndlr = {
 	crnt_pg: [],
 	pages: [],
 	popstates: [],
+	currentLoad: null,
 	getPages: function() {
 		return $('#content > .content_page');
 	},
@@ -58,8 +59,15 @@ var _pg_hndlr = {
 			history.pushState(null,null,link);
 
 		// Check if this page element already exists within the page
-		if (page.is(_pg_hndlr.crnt_pg))
+		if (page.is(_pg_hndlr.crnt_pg)) {
+			if (_pg_hndlr.currentLoad !== null) {
+				_pg_hndlr.currentLoad.abort();
+				_pg_hndlr.currentLoad = null;
+				_.defer(window.NProgress.done);
+			}
+			
 			return;
+		}
 		
 		var data = {};
 		if (specific != undefined)
@@ -71,10 +79,17 @@ var _pg_hndlr = {
 			_sw.timedisplay.update();
 			_pg_hndlr.popstates.push(link);
 			_.defer(window.NProgress.done);
+			_pg_hndlr.currentLoad = null;
+		}
+		
+		if (_pg_hndlr.currentLoad !== null) {
+			_pg_hndlr.currentLoad.abort();
+			_pg_hndlr.currentLoad = null;
 		}
 		
 		if (page.length==0) {
-			jQuery.ajax({
+			
+			var load = jQuery.ajax({
 				url: _pg_hndlr.typealias('file',type),
 				type: 'POST',
 				data: data,
@@ -94,6 +109,9 @@ var _pg_hndlr = {
 					});
 				}
 			});
+			
+			_pg_hndlr.currentLoad = load;
+			
 		} else {
 			_pg_hndlr.showpage(page,link);
 			if (callback) callback();
